@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Paginated from "./pages/Paginated";
 import InfiniteQuery from "./pages/InfiniteQuery";
+import Mutation from "./pages/Mutation";
 
 function App() {
   const queryClient = new QueryClient();
@@ -25,6 +26,7 @@ function App() {
                   path="/infinite-query"
                   component={InfiniteQuery}
                 />
+                <Route exact={true} path="/mutation" component={Mutation} />
               </Switch>
             </div>
           </div>

@@ -15,6 +15,11 @@ const Navbar = () => {
             Infinite
           </NavLink>
         </li>
+        <li>
+          <NavLink to="/mutation" activeClassName="active">
+            Mutation
+          </NavLink>
+        </li>
       </ul>
     </div>
   );

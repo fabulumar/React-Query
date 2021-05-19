@@ -38,3 +38,53 @@ export const getPlanetsAsInfinite = () => {
     },
   });
 };
+
+export const getAllTodo = () => {
+  const getTodoFunc = async () => {
+    const response = await axios.get(
+      "https://todos-8be1.restdb.io/rest/todos",
+      {
+        headers: {
+          "cache-control": "no-cache",
+          "x-apikey": "60a0f416e3b6e02545eda969",
+        },
+      }
+    );
+    return response;
+  };
+  return MakeQuery("get_all_todo", getTodoFunc);
+};
+
+export const postTodo = async (newTodo) => {
+  return await axios.post("https://todos-8be1.restdb.io/rest/todos", newTodo, {
+    headers: {
+      "cache-control": "no-cache",
+      "x-apikey": "60a0f416e3b6e02545eda969",
+    },
+  });
+};
+
+export const putTodo = async (editData) => {
+  return await axios.put(
+    `https://todos-8be1.restdb.io/rest/todos/${editData.id}`,
+    editData.data,
+    {
+      headers: {
+        "cache-control": "no-cache",
+        "x-apikey": "60a0f416e3b6e02545eda969",
+      },
+    }
+  );
+};
+
+export const deleteTodo = async (todoId) => {
+  return await axios.delete(
+    `https://todos-8be1.restdb.io/rest/todos/${todoId}`,
+    {
+      headers: {
+        "cache-control": "no-cache",
+        "x-apikey": "60a0f416e3b6e02545eda969",
+      },
+    }
+  );
+};
