@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { deleteTodo, getAllTodo, postTodo, putTodo } from "../hooks/index";
+import Button from "../components/Button";
+import TextWithCheckBox from "../components/TextWithCheckBox";
+import TodoHeader from "../components/TodoHeader";
+import TodoItem from "../components/TodoItem";
 
 const Mutation = () => {
   const queryClient = useQueryClient();
@@ -145,70 +149,42 @@ const Mutation = () => {
       {status === "loading" && "Loading Todos..."}
       {status === "success" && (
         <>
-          <div className="todo-header">
-            <p className="completed-todo">{getCompleteTodo()}</p>
-            <p className="total-todo">{todoList.length}</p>
-          </div>
+          <TodoHeader
+            completedTodo={getCompleteTodo()}
+            totalTodo={todoList.length}
+          />
           <div className="item-wrapper">
             {todoList &&
               todoList.length &&
               todoList.map((todo, index) => (
-                <div
-                  className={`item todoItem ${
-                    todo.isCompleted ? "completed" : ""
-                  }`}
+                <TodoItem
                   key={todo._id || index}
+                  id={todo._id}
+                  handleTodoCheck={handleTodoCheck}
+                  onEditClick={onEditClick}
+                  onDeleteClick={onDeleteClick}
+                  isCompleted={todo.isCompleted}
                 >
-                  <label>
-                    <input
-                      type="checkBox"
-                      id={todo._id}
-                      checked={todo.isCompleted}
-                      aria-checked={todo.isCompleted}
-                      onChange={handleTodoCheck}
-                    />
-                    {todo.title}
-                  </label>
-                  <div className="action-wrapper">
-                    <span
-                      className="icon-note edit"
-                      id={todo._id}
-                      onClick={onEditClick}
-                    ></span>
-                    <span
-                      id={todo._id}
-                      onClick={onDeleteClick}
-                      className="icon-trash delete"
-                    ></span>
-                  </div>
-                </div>
+                  {todo.title}
+                </TodoItem>
               ))}
           </div>
           <div className="form-wrapper">
-            <div className="checkbox">
-              <div className="checkbox-inner" html-for="isCompleted">
-                <input
-                  type="checkbox"
-                  checked={isCompletedTodo}
-                  onChange={handleCompletedTodo}
-                  id="isCompleted"
-                ></input>
-              </div>
-              <input
-                type="text"
-                value={todoTitle}
-                onChange={handleTitleChange}
-                placeholder="What do you want to get done?"
-              />
-            </div>
-            <button
+            <TextWithCheckBox
+              value={todoTitle}
+              onTextChange={handleTitleChange}
+              textPlaceholder="What do you want to get done?"
+              isCheck={isCompletedTodo}
+              onCheckBoxChange={handleCompletedTodo}
+            />
+            <Button
               type="submit"
+              variant="secondary"
               onClick={handleFormSubmit}
-              className="button"
               disabled={todoTitle === ""}
             >
               {renderButtonText()}
-            </button>
+            </Button>
           </div>
         </>
       )}

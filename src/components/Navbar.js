@@ -1,4 +1,5 @@
 import React from "react";
+import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
 let navLinks = [
@@ -7,9 +8,32 @@ let navLinks = [
   { title: "Mutation", to: "/mutation" },
 ];
 
+const NavBarRoot = styled.div`
+  max-width: 300px;
+  width: 100%;
+  border-right: 1px solid rgb(230 230 230);
+  margin: 0;
+  ul {
+    list-style: none;
+    li {
+      display: block;
+      margin-bottom: 10px;
+      a {
+        display: block;
+        color: rgb(0 0 0);
+        text-decoration: none;
+        padding: 5px 10px;
+        &.active {
+          color: rgb(255 62 0);
+        }
+      }
+    }
+  }
+`;
+
 const Navbar = () => {
   return (
-    <div className="navbar">
+    <NavBarRoot>
       <ul>
         {navLinks.map((link) => (
           <li key={link.title}>
@@ -17,7 +41,7 @@ const Navbar = () => {
           </li>
         ))}
       </ul>
-    </div>
+    </NavBarRoot>
   );
 };
 

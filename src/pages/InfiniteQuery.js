@@ -1,5 +1,7 @@
 import React from "react";
+import Button from "../components/Button";
 import { getPlanetsAsInfinite } from "../hooks/index";
+import Card from "../components/Card";
 
 const InfiniteQuery = () => {
   const {
@@ -29,7 +31,7 @@ const InfiniteQuery = () => {
           {planetList &&
             planetList.length &&
             planetList.map((planet, index) => (
-              <div className="item" key={index}>
+              <Card key={index}>
                 <h4>
                   {index + 1}: {planet.name}
                 </h4>
@@ -37,13 +39,13 @@ const InfiniteQuery = () => {
                 <p>Terrain: {planet.terrain}</p>
                 <p>Gravity: {planet.gravity}</p>
                 <p>Diameter:{planet.diameter}</p>
-              </div>
+              </Card>
             ))}
         </div>
       )}
       {!isLoading && (
         <div className="button-wrapper">
-          <button
+          <Button
             onClick={() => fetchNextPage()}
             disabled={!hasNextPage || isFetchingNextPage}
             className="button"
@@ -53,7 +55,7 @@ const InfiniteQuery = () => {
               : hasNextPage
               ? "Show More"
               : "Nothing more to load"}
-          </button>
+          </Button>
         </div>
       )}
       {status === "error" && "Some error occurred. Please try again later"}

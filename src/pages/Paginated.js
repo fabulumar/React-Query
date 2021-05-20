@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { getPlanetsById } from "../hooks";
 
 import Pagination from "../components/Pagination";
+import Card from "../components/Card";
 
 const Paginated = () => {
   const [pageNo, setPageNo] = useState(1);
@@ -23,13 +24,13 @@ const Paginated = () => {
       ) : status === "success" ? (
         <div className="item-wrapper">
           {planetLists.map((planet, index) => (
-            <div className="item" key={index}>
+            <Card key={index}>
               <h4>{planet.name}</h4>
               <p>Climate: {planet.climate}</p>
               <p>Terrain: {planet.terrain}</p>
               <p>Gravity: {planet.gravity}</p>
               <p>Diameter:{planet.diameter}</p>
-            </div>
+            </Card>
           ))}
         </div>
       ) : (
