@@ -42,8 +42,7 @@
 .item-wrapper {
   margin-top: 20px;
   margin-bottom: 30px;
-  min-height: 65vh;
-  max-height: 65vh;
+  max-height: 55vh;
   overflow-y: auto;
 }
 

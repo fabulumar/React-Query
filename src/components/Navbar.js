@@ -1,25 +1,21 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
+let navLinks = [
+  { title: "Paginated", to: "/home" },
+  { title: "Infinite", to: "/infinite-query" },
+  { title: "Mutation", to: "/mutation" },
+];
+
 const Navbar = () => {
   return (
     <div className="navbar">
       <ul>
-        <li>
-          <NavLink to="/" activeClassName="active">
-            Paginated
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/infinite-query" activeClassName="active">
-            Infinite
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/mutation" activeClassName="active">
-            Mutation
-          </NavLink>
-        </li>
+        {navLinks.map((link) => (
+          <li key={link.title}>
+            <NavLink to={link.to}>{link.title}</NavLink>
+          </li>
+        ))}
       </ul>
     </div>
   );

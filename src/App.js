@@ -2,7 +2,12 @@ import React from "react";
 import "./App.css";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Redirect,
+  Switch,
+  Route,
+} from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 import Paginated from "./pages/Paginated";
@@ -20,7 +25,10 @@ function App() {
             <Navbar></Navbar>
             <div className="content">
               <Switch>
-                <Route exact={true} path="/" component={Paginated} />
+                <Route exact path="/">
+                  <Redirect to="/home" />
+                </Route>
+                <Route exact={true} path="/home" component={Paginated} />
                 <Route
                   exact={true}
                   path="/infinite-query"
