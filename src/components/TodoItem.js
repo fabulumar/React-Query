@@ -22,24 +22,25 @@ const Wrapper = styled(Card)`
   }
   ${({ isCompleted }) =>
     isCompleted && `&:hover{border: 1px solid rgb(230 233 238 / 86%);}`}
+`;
 
-  .action-wrapper {
-    display: flex;
-    align-items: center;
-    margin-left: auto;
-  }
-  .action-wrapper span {
+const ActionWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  span {
     color: grey;
     transition: 0.2s ease;
     transition-property: color;
-  }
-
-  .action-wrapper span.edit:hover {
-    color: rgb(255 62 0);
-  }
-
-  .action-wrapper span:not(:last-child) {
-    margin-right: 10px;
+    :not(:last-child) {
+      margin-right: 10px;
+    }
+    &.edit:hover {
+      color: rgb(48 45 45);
+    }
+    &.delete:hover {
+      color: rgb(255 62 0);
+    }
   }
 `;
 
@@ -63,14 +64,14 @@ const TodoItem = (props) => {
       >
         {children}
       </Checkbox>
-      <div className="action-wrapper">
+      <ActionWrapper>
         <span id={id} onClick={onEditClick} className="icon-note edit"></span>
         <span
           id={id}
           onClick={onDeleteClick}
           className="icon-trash delete"
         ></span>
-      </div>
+      </ActionWrapper>
     </Wrapper>
   );
 };

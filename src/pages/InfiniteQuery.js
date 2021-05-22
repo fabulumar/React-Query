@@ -1,7 +1,17 @@
 import React from "react";
+import styled from "styled-components";
 import Button from "../components/Button";
 import { getPlanetsAsInfinite } from "../hooks/index";
 import Card from "../components/Card";
+import Loader from "../components/Loader";
+import ErrorMessage from "../components/ErrorMessage";
+
+const ButtonWrapper = styled.div`
+  position: sticky;
+  bottom: 0px;
+  background: rgb(255 255 255);
+  padding: 10px 0px;
+`;
 
 const InfiniteQuery = () => {
   const {
@@ -22,12 +32,12 @@ const InfiniteQuery = () => {
     return list;
   };
   const planetList = getPlanetList();
-
   return (
-    <div className="container">
-      {status === "loading" && "Loading Planets..."}
-      {status === "success" && (
-        <div className="item-wrapper">
+    <>
+      {status === "loading" ? (
+        <Loader />
+      ) : status === "success" ? (
+        <>
           {planetList &&
             planetList.length &&
             planetList.map((planet, index) => (
@@ -41,10 +51,13 @@ const InfiniteQuery = () => {
                 <p>Diameter:{planet.diameter}</p>
               </Card>
             ))}
-        </div>
+        </>
+      ) : (
+        <ErrorMessage />
       )}
+
       {!isLoading && (
-        <div className="button-wrapper">
+        <ButtonWrapper>
           <Button
             onClick={() => fetchNextPage()}
             disabled={!hasNextPage || isFetchingNextPage}
@@ -56,10 +69,9 @@ const InfiniteQuery = () => {
               ? "Show More"
               : "Nothing more to load"}
           </Button>
-        </div>
+        </ButtonWrapper>
       )}
-      {status === "error" && "Some error occurred. Please try again later"}
-    </div>
+    </>
   );
 };
 

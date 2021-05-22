@@ -1,10 +1,32 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 import { useMutation, useQueryClient } from "react-query";
 import { deleteTodo, getAllTodo, postTodo, putTodo } from "../hooks/index";
-import Button from "../components/Button";
+import Button, { ButtonRoot } from "../components/Button";
 import TextWithCheckBox from "../components/TextWithCheckBox";
 import TodoHeader from "../components/TodoHeader";
 import TodoItem from "../components/TodoItem";
+import Loader from "../components/Loader";
+import ErrorMessage from "../components/ErrorMessage";
+
+const FormWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  input:not(:last-child) {
+    margin-right: 8px;
+  }
+  ${ButtonRoot} {
+    min-width: auto;
+    margin-left: 16px;
+  }
+`;
+
+const TodoListWrapper = styled.div`
+  margin-top: 20px;
+  margin-bottom: 30px;
+  max-height: 55vh;
+  overflow-y: auto;
+`;
 
 const Mutation = () => {
   const queryClient = useQueryClient();
@@ -145,15 +167,16 @@ const Mutation = () => {
   };
 
   return (
-    <div className="container">
-      {status === "loading" && "Loading Todos..."}
-      {status === "success" && (
+    <>
+      {status === "loading" ? (
+        <Loader />
+      ) : status === "success" ? (
         <>
           <TodoHeader
             completedTodo={getCompleteTodo()}
             totalTodo={todoList.length}
           />
-          <div className="item-wrapper">
+          <TodoListWrapper>
             {todoList &&
               todoList.length &&
               todoList.map((todo, index) => (
@@ -168,8 +191,8 @@ const Mutation = () => {
                   {todo.title}
                 </TodoItem>
               ))}
-          </div>
-          <div className="form-wrapper">
+          </TodoListWrapper>
+          <FormWrapper>
             <TextWithCheckBox
               value={todoTitle}
               onTextChange={handleTitleChange}
@@ -177,19 +200,15 @@ const Mutation = () => {
               isCheck={isCompletedTodo}
               onCheckBoxChange={handleCompletedTodo}
             />
-            <Button
-              type="submit"
-              variant="secondary"
-              onClick={handleFormSubmit}
-              disabled={todoTitle === ""}
-            >
+            <Button onClick={handleFormSubmit} disabled={todoTitle === ""}>
               {renderButtonText()}
             </Button>
-          </div>
+          </FormWrapper>
         </>
+      ) : (
+        <ErrorMessage />
       )}
-      {status === "error" && "Some error occurred. Please try again later"}
-    </div>
+    </>
   );
 };
 

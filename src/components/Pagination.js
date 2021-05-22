@@ -13,15 +13,15 @@ const PaginationRoot = styled.div`
     padding-left: 0px;
     li {
       display: inline-block;
-      padding: 4px 24px;
-      background: rgb(255 230 221);
-      color: rgb(255 0 0);
+      padding: 7px 24px;
+      background: var(--primary-fill);
+      color: rgb(255, 255, 255);
       box-shadow: 0px 0px 3px rgb(0 0 0 / 8%);
       font-size: 13px;
       font-weight: 600;
       cursor: pointer;
       &:not(.disabled):hover {
-        background: rgb(250 216 205);
+        background: var(--primary-hover-fill);
       }
       &:first-child {
         border-radius: 3px 0px 0px 3px;
@@ -30,8 +30,8 @@ const PaginationRoot = styled.div`
         border-radius: 0px 3px 3px 0px;
       }
       &.disabled {
-        color: rgb(255 0 0 / 42%);
-        background: rgb(255 230 221 / 43%);
+        color: var(--primary-disabled-color);
+        background: var(--primary-disabled-fill);
         box-shadow: none;
         cursor: not-allowed;
         pointer-events: none;
@@ -46,7 +46,7 @@ const PaginationRoot = styled.div`
       font-size: 17px;
       margin-right: 4px;
       font-weight: 500;
-      color: rgb(255 2 0);
+      color: var(--primary-fill);
       transform: translateY(-5px);
     }
 

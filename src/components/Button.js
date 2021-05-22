@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
-const ButtonRoot = styled.button`
-  background: rgb(255 62 0);
+export const ButtonRoot = styled.button`
+  background: var(--primary-fill);
   border-radius: 4px;
   margin: 10px auto 10px auto;
   min-width: 300px;
@@ -17,14 +17,13 @@ const ButtonRoot = styled.button`
   transition-property: background, color, box-shadow;
   cursor: pointer;
   &:not(:disabled):hover {
-    background: rgb(206 54 6);
+    background: var(--primary-hover-fill);
   }
   &:disabled {
-    color: rgb(255 0 0 / 42%);
-    background: rgb(255 230 221 / 43%);
+    color: var(--primary-disabled-color);
+    background: var(--primary-disabled-fill);
     box-shadow: none;
     cursor: not-allowed;
-    pointer-events: none;
   }
 `;
 

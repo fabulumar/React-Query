@@ -3,6 +3,7 @@ import { getPlanetsById } from "../hooks";
 
 import Pagination from "../components/Pagination";
 import Card from "../components/Card";
+import Loader from "../components/Loader";
 
 const Paginated = () => {
   const [pageNo, setPageNo] = useState(1);
@@ -10,7 +11,7 @@ const Paginated = () => {
   const planetLists = data?.data.results;
 
   return (
-    <div className="container">
+    <>
       <Pagination
         onPrevClick={() => setPageNo(pageNo - 1)}
         onNextClick={() => setPageNo(pageNo + 1)}
@@ -20,7 +21,7 @@ const Paginated = () => {
         isNextDisabled={!data?.data.next}
       ></Pagination>
       {status === "loading" ? (
-        "Loading Planets..."
+        <Loader />
       ) : status === "success" ? (
         <div className="item-wrapper">
           {planetLists.map((planet, index) => (
@@ -36,7 +37,7 @@ const Paginated = () => {
       ) : (
         "Some error occurred. Please try again later"
       )}
-    </div>
+    </>
   );
 };
 

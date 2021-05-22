@@ -1,50 +1,11 @@
-.title {
-  text-align: center;
+:root {
+  --primary-fill: rgb(72 106 255);
+  --primary-hover-fill: rgb(63 91 212);
+  --primary-disabled-fill: rgb(56 104 202 / 8%);
+  --primary-disabled-color: rgb(56 104 202 / 80%);
+  --Text-color: rgb(60 60 60);
 }
 
-.content-wrapper {
-  display: flex;
-}
-
-.content {
-  margin: 50px auto 0px auto;
-  width: 100%;
-  max-width: 700px;
-}
-
-.item-wrapper {
-  margin-top: 20px;
-  margin-bottom: 30px;
-  max-height: 55vh;
-  overflow-y: auto;
-}
-
-.container {
-  position: relative;
-  margin: 20px auto 50px auto;
-}
-
-.mb {
-  margin-bottom: 20px;
-}
-
-.button-wrapper {
-  position: sticky;
-  bottom: 0px;
-  background: rgb(255 255 255);
-  padding: 10px 0px;
-}
-
-.form-wrapper {
-  display: flex;
-  align-items: center;
-}
-
-.form-wrapper input:not(:last-child) {
-  margin-right: 8px;
-}
-
-.form-wrapper .button {
-  min-width: auto;
-  margin-left: 16px;
+body {
+  color: var(--Text-color);
 }

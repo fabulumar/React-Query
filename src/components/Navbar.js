@@ -9,35 +9,45 @@ let navLinks = [
 ];
 
 const NavBarRoot = styled.div`
-  max-width: 300px;
-  width: 100%;
+  position: fixed;
+  top: 0;
+  left: ${({ isOpen }) => (isOpen ? "0px" : "-300px")};
+  height: 100%;
+  width: 300px;
   border-right: 1px solid rgb(230 230 230);
   margin: 0;
+  padding-top: 100px;
+  transition: 0.2s ease;
+  box-shadow: ${({ isOpen }) => isOpen && "0 0 20px 0px rgb(71 71 71 / 15%)"};
+  transition-property: left box-shadow;
   ul {
     list-style: none;
+    padding-left: 12px;
     li {
       display: block;
       margin-bottom: 10px;
       a {
         display: block;
-        color: rgb(0 0 0);
+        color: var(--text-color);
         text-decoration: none;
         padding: 5px 10px;
         &.active {
-          color: rgb(255 62 0);
+          color: var(--primary-fill);
         }
       }
     }
   }
 `;
 
-const Navbar = () => {
+const Navbar = ({ isOpen, onNavLink }) => {
   return (
-    <NavBarRoot>
+    <NavBarRoot isOpen={isOpen}>
       <ul>
         {navLinks.map((link) => (
           <li key={link.title}>
-            <NavLink to={link.to}>{link.title}</NavLink>
+            <NavLink to={link.to} onClick={onNavLink}>
+              {link.title}
+            </NavLink>
           </li>
         ))}
       </ul>
