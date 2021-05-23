@@ -50,19 +50,19 @@ const TodoItem = (props) => {
     handleTodoCheck,
     onEditClick,
     onDeleteClick,
-    children,
+    title,
     isCompleted,
   } = props;
   return (
     <Wrapper key={id} isCompleted={isCompleted}>
       <Checkbox
-        type="checkbox"
         id={id}
+        type="checkbox"
         checked={isCompleted}
         aria-checked={isCompleted}
         onChange={handleTodoCheck}
       >
-        {children}
+        {title}
       </Checkbox>
       <ActionWrapper>
         <span id={id} onClick={onEditClick} className="icon-note edit"></span>

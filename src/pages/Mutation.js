@@ -81,15 +81,17 @@ const Mutation = () => {
   });
 
   const { mutate: checkTodo } = useMutation(putTodo, {
-    onMutate: async (data) => {
-      await queryClient.cancelQueries("get_all_todo");
-      let previousTodo = await queryClient.getQueryData("get_all_todo");
-      const index = previousTodo.data.findIndex((todo) => todo._id === data.id);
-      previousTodo.data[index].isCompleted = !data.data.isCompleted;
-      await queryClient.setQueryData("get_all_todo", previousTodo);
+    onMutate: (data) => {
+      queryClient.cancelQueries("get_all_todo");
+      const oldData = queryClient.getQueryData("get_all_todo");
+      const index = oldData.data.findIndex((todo) => todo._id === data.id);
+      oldData.data[index].isCompleted = !oldData.data[index].isCompleted;
+
+      queryClient.setQueryData("get_all_todo", oldData);
+      return oldData;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries("get_all_todo");
+      queryClient.refetchQueries("get_all_todo");
     },
   });
 
@@ -134,14 +136,15 @@ const Mutation = () => {
   };
 
   const handleTodoCheck = (e) => {
-    const { id, ariaChecked } = e.target;
-    const data = {
-      id,
+    const indexTodo = todoList.findIndex((todo) => todo._id === e.target.id);
+    const editData = {
+      id: e.target.id,
       data: {
-        isCompleted: ariaChecked === "true" || false,
+        title: todoList[indexTodo].title,
+        isCompleted: !todoList[indexTodo].isCompleted,
       },
     };
-    checkTodo(data);
+    checkTodo(editData);
   };
 
   const renderButtonText = () => {
@@ -183,13 +186,12 @@ const Mutation = () => {
                 <TodoItem
                   key={todo._id || index}
                   id={todo._id}
+                  title={todo.title}
                   handleTodoCheck={handleTodoCheck}
                   onEditClick={onEditClick}
                   onDeleteClick={onDeleteClick}
                   isCompleted={todo.isCompleted}
-                >
-                  {todo.title}
-                </TodoItem>
+                />
               ))}
           </TodoListWrapper>
           <FormWrapper>
