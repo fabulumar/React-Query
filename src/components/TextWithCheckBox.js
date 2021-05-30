@@ -27,6 +27,9 @@ const StyledCheckbox = styled(Checkbox)`
   border-bottom: 1px solid rgb(235 235 235);
   border-left: 1px solid rgb(235 235 235);
   background: rgb(249 250 252);
+  span {
+    margin-right: 0px;
+  }
 `;
 
 const TextWithCheckBox = (props) => {

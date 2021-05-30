@@ -8,9 +8,6 @@ const Wrapper = styled(Card)`
   padding: 0px 15px;
   transition: 0.3s ease;
   transition-property: opacity, box-shadow, border-color;
-  opacity: ${({ isCompleted }) => (isCompleted ? "0.5" : "1")};
-  box-shadow: ${({ isCompleted }) => isCompleted && "none"};
-  border-color: ${({ isCompleted }) => isCompleted && "transparent"};
   label {
     padding: 10px 2px;
     width: 100%;
@@ -20,8 +17,6 @@ const Wrapper = styled(Card)`
       margin-right: 12px;
     }
   }
-  ${({ isCompleted }) =>
-    isCompleted && `&:hover{border: 1px solid rgb(230 233 238 / 86%);}`}
 `;
 
 const ActionWrapper = styled.div`
@@ -52,6 +47,7 @@ const TodoItem = (props) => {
     onDeleteClick,
     title,
     isCompleted,
+    isLoading,
   } = props;
   return (
     <Wrapper key={id} isCompleted={isCompleted}>
@@ -61,6 +57,7 @@ const TodoItem = (props) => {
         checked={isCompleted}
         aria-checked={isCompleted}
         onChange={handleTodoCheck}
+        isLoading={isLoading}
       >
         {title}
       </Checkbox>

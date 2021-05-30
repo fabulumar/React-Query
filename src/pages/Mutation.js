@@ -34,6 +34,7 @@ const Mutation = () => {
   const [isCompletedTodo, setIsCompletedTodo] = useState(false);
   const [selectedId, setSelectedId] = useState("");
   const [isEditMode, setIsEditMode] = useState(false);
+  const [updatingTodoIds, setUpdatingTodoIds] = useState([]);
   const { data, status } = getAllTodo();
   let todoList = data?.data;
 
@@ -87,10 +88,17 @@ const Mutation = () => {
       const index = oldData.data.findIndex((todo) => todo._id === data.id);
       oldData.data[index].isCompleted = !oldData.data[index].isCompleted;
 
+      if (!updatingTodoIds.includes(data.id)) {
+        setUpdatingTodoIds([...updatingTodoIds, data.id]);
+      }
       queryClient.setQueryData("get_all_todo", oldData);
-      return oldData;
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
+      setUpdatingTodoIds(
+        updatingTodoIds.map((updatingTodoId) => {
+          return updatingTodoId !== data.data._id && updatingTodoId;
+        })
+      );
       queryClient.refetchQueries("get_all_todo");
     },
   });
@@ -169,6 +177,13 @@ const Mutation = () => {
     return count;
   };
 
+  const checkIfTodoLoading = (todo) => {
+    if (updatingTodoIds.includes(todo._id)) {
+      return true;
+    }
+    return false;
+  };
+
   return (
     <>
       {status === "loading" ? (
@@ -191,6 +206,7 @@ const Mutation = () => {
                   onEditClick={onEditClick}
                   onDeleteClick={onDeleteClick}
                   isCompleted={todo.isCompleted}
+                  isLoading={checkIfTodoLoading(todo)}
                 />
               ))}
           </TodoListWrapper>
