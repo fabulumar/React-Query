@@ -18,6 +18,9 @@ export const TextBoxRoot = styled.input`
     outline: none;
     background: rgb(235 235 235);
   }
+  &:hover {
+    background: rgb(241 244 248);
+  }
 `;
 
 const TextBox = (props) => {

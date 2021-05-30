@@ -26,7 +26,13 @@ const StyledCheckbox = styled(Checkbox)`
   border-top: 1px solid rgb(235 235 235);
   border-bottom: 1px solid rgb(235 235 235);
   border-left: 1px solid rgb(235 235 235);
+  transition: 0.2s ease;
   background: rgb(249 250 252);
+  transition-property: background;
+  cursor: pointer;
+  &:hover {
+    background: rgb(241 244 248);
+  }
   span {
     margin-right: 0px;
   }

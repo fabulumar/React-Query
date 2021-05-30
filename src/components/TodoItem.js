@@ -7,7 +7,7 @@ const Wrapper = styled(Card)`
   display: flex;
   padding: 0px 15px;
   transition: 0.3s ease;
-  transition-property: opacity, box-shadow, border-color;
+  transition-property: background, box-shadow;
   label {
     padding: 10px 2px;
     width: 100%;
@@ -16,6 +16,10 @@ const Wrapper = styled(Card)`
     input[type="checkbox"] {
       margin-right: 12px;
     }
+  }
+  &:hover {
+    box-shadow: 2px 3px 10px -3px rgb(52 73 122 / 25%);
+    background: rgb(246 246 246 / 70%);
   }
 `;
 
