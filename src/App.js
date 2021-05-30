@@ -54,13 +54,14 @@ function App() {
               <Route exact path="/">
                 <Redirect to="/home" />
               </Route>
-              <Route exact={true} path="/home" component={Paginated} />
+              <Route exact={true} path="/home" component={Mutation} />
+
               <Route
                 exact={true}
                 path="/infinite-query"
                 component={InfiniteQuery}
               />
-              <Route exact={true} path="/mutation" component={Mutation} />
+              <Route exact={true} path="/paginated" component={Paginated} />
             </Switch>
           </BodyContent>
         </Router>

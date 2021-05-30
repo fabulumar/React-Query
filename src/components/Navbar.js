@@ -3,9 +3,9 @@ import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 
 let navLinks = [
-  { title: "Paginated", to: "/home" },
+  { title: "Mutation", to: "/home" },
   { title: "Infinite", to: "/infinite-query" },
-  { title: "Mutation", to: "/mutation" },
+  { title: "Paginated", to: "/paginated" },
 ];
 
 const NavBarRoot = styled.div`
