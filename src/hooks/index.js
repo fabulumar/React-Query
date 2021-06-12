@@ -9,6 +9,7 @@ const MakeInfiniteQuery = (name, func, params) => {
   return useInfiniteQuery(name, func, params);
 };
 
+//Planets
 export const getPlanets = () => {
   const getPlanetsFunc = async () => {
     return await axios.get("http://swapi.dev/api/planets");
@@ -39,14 +40,15 @@ export const getPlanetsAsInfinite = () => {
   });
 };
 
+// Todo
 export const getAllTodo = () => {
   const getTodoFunc = async () => {
     const response = await axios.get(
-      "https://todos-8be1.restdb.io/rest/todos",
+      "https://appbox-e8e3.restdb.io/rest/todo",
       {
         headers: {
           "cache-control": "no-cache",
-          "x-apikey": "60a0f416e3b6e02545eda969",
+          "x-apikey": "60bcf007f2a01c34b8ed35a3",
         },
       }
     );
@@ -56,22 +58,22 @@ export const getAllTodo = () => {
 };
 
 export const postTodo = async (newTodo) => {
-  return await axios.post("https://todos-8be1.restdb.io/rest/todos", newTodo, {
+  return await axios.post("https://appbox-e8e3.restdb.io/rest/todo", newTodo, {
     headers: {
       "cache-control": "no-cache",
-      "x-apikey": "60a0f416e3b6e02545eda969",
+      "x-apikey": "60bcf007f2a01c34b8ed35a3",
     },
   });
 };
 
 export const putTodo = async (editData) => {
   return await axios.put(
-    `https://todos-8be1.restdb.io/rest/todos/${editData.id}`,
+    `https://appbox-e8e3.restdb.io/rest/todo/${editData.id}`,
     editData.data,
     {
       headers: {
         "cache-control": "no-cache",
-        "x-apikey": "60a0f416e3b6e02545eda969",
+        "x-apikey": "60bcf007f2a01c34b8ed35a3",
       },
     }
   );
@@ -79,12 +81,29 @@ export const putTodo = async (editData) => {
 
 export const deleteTodo = async (todoId) => {
   return await axios.delete(
-    `https://todos-8be1.restdb.io/rest/todos/${todoId}`,
+    `https://appbox-e8e3.restdb.io/rest/todo/${todoId}`,
     {
       headers: {
         "cache-control": "no-cache",
-        "x-apikey": "60a0f416e3b6e02545eda969",
+        "x-apikey": "60bcf007f2a01c34b8ed35a3",
       },
     }
   );
+};
+
+// Employee Details
+export const getAllEmployees = () => {
+  const getEmployeesFunc = async () => {
+    const response = await axios.get(
+      "https://appbox-e8e3.restdb.io/rest/employee-info",
+      {
+        headers: {
+          "cache-control": "no-cache",
+          "x-apikey": "60bcf007f2a01c34b8ed35a3",
+        },
+      }
+    );
+    return response;
+  };
+  return MakeQuery("get_all_employees", getEmployeesFunc);
 };

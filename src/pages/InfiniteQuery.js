@@ -13,6 +13,17 @@ const ButtonWrapper = styled.div`
   padding: 10px 0px;
 `;
 
+const StyledCard = styled(Card)`
+  h4 {
+    margin: 0px 0px 15px 0px;
+  }
+  p {
+    margin: 0px 0px 5px 0px;
+    color: rgb(38 38 38);
+    font-size: 15px;
+  }
+`;
+
 const InfiniteQuery = () => {
   const {
     data,
@@ -41,7 +52,7 @@ const InfiniteQuery = () => {
           {planetList &&
             planetList.length &&
             planetList.map((planet, index) => (
-              <Card key={index}>
+              <StyledCard key={index} width="700px" centered>
                 <h4>
                   {index + 1}: {planet.name}
                 </h4>
@@ -49,7 +60,7 @@ const InfiniteQuery = () => {
                 <p>Terrain: {planet.terrain}</p>
                 <p>Gravity: {planet.gravity}</p>
                 <p>Diameter:{planet.diameter}</p>
-              </Card>
+              </StyledCard>
             ))}
         </>
       ) : (

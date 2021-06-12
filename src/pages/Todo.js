@@ -8,6 +8,7 @@ import TodoHeader from "../components/TodoHeader";
 import TodoItem from "../components/TodoItem";
 import Loader from "../components/Loader";
 import ErrorMessage from "../components/ErrorMessage";
+import Card from "../components/Card";
 
 const FormWrapper = styled.div`
   display: flex;
@@ -189,7 +190,7 @@ const Mutation = () => {
       {status === "loading" ? (
         <Loader />
       ) : status === "success" ? (
-        <>
+        <Card width="700px" centered transparent>
           <TodoHeader
             completedTodo={getCompleteTodo()}
             totalTodo={todoList.length}
@@ -222,7 +223,7 @@ const Mutation = () => {
               {renderButtonText()}
             </Button>
           </FormWrapper>
-        </>
+        </Card>
       ) : (
         <ErrorMessage />
       )}

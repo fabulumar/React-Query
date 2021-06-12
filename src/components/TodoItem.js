@@ -2,12 +2,14 @@ import React from "react";
 import styled from "styled-components";
 import Card from "../components/Card";
 import Checkbox from "../components/Checkbox";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Wrapper = styled(Card)`
   display: flex;
   padding: 0px 15px;
   transition: 0.3s ease;
   transition-property: background, box-shadow;
+  box-sizing: border-box;
   label {
     padding: 10px 2px;
     width: 100%;
@@ -31,6 +33,7 @@ const ActionWrapper = styled.div`
     color: grey;
     transition: 0.2s ease;
     transition-property: color;
+    font-style: 12px;
     :not(:last-child) {
       margin-right: 10px;
     }
@@ -65,13 +68,14 @@ const TodoItem = (props) => {
       >
         {title}
       </Checkbox>
+
       <ActionWrapper>
-        <span id={id} onClick={onEditClick} className="icon-note edit"></span>
-        <span
-          id={id}
-          onClick={onDeleteClick}
-          className="icon-trash delete"
-        ></span>
+        <span id={id} onClick={onEditClick} className="edit">
+          <FontAwesomeIcon icon="pen" size="sm" />
+        </span>
+        <span id={id} onClick={onDeleteClick} className="delete">
+          <FontAwesomeIcon icon="trash-alt" size="sm" />
+        </span>
       </ActionWrapper>
     </Wrapper>
   );

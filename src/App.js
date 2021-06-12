@@ -11,16 +11,16 @@ import {
 } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
-import Paginated from "./pages/Paginated";
-import InfiniteQuery from "./pages/InfiniteQuery";
-import Mutation from "./pages/Mutation";
 import NavigationToggle from "./components/NavigationToggle";
+import { routes } from "./routesManagement";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faPen, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+
+library.add(faPen, faTrashAlt);
 
 const BodyContent = styled.div`
-  margin: 50px auto 0px auto;
+  margin: 80px auto 0px auto;
   width: 100%;
-  max-width: 700px;
-  min-height: 300px;
   display: flex;
   flex-direction: column;
   transform: ${({ isNavBarOpen }) =>
@@ -54,14 +54,15 @@ function App() {
               <Route exact path="/">
                 <Redirect to="/home" />
               </Route>
-              <Route exact={true} path="/home" component={Mutation} />
-
-              <Route
-                exact={true}
-                path="/infinite-query"
-                component={InfiniteQuery}
-              />
-              <Route exact={true} path="/paginated" component={Paginated} />
+              {routes.length &&
+                routes.map((route, index) => (
+                  <Route
+                    key={index}
+                    exact={route.exact}
+                    path={route.path}
+                    component={route.component}
+                  />
+                ))}
             </Switch>
           </BodyContent>
         </Router>

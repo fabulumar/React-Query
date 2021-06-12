@@ -1,12 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
-
-let navLinks = [
-  { title: "Mutation", to: "/home" },
-  { title: "Infinite", to: "/infinite-query" },
-  { title: "Paginated", to: "/paginated" },
-];
+import { routes } from "../routesManagement";
 
 const NavBarRoot = styled.div`
   position: fixed;
@@ -43,13 +38,14 @@ const Navbar = ({ isOpen, onNavLink }) => {
   return (
     <NavBarRoot isOpen={isOpen}>
       <ul>
-        {navLinks.map((link) => (
-          <li key={link.title}>
-            <NavLink to={link.to} onClick={onNavLink}>
-              {link.title}
-            </NavLink>
-          </li>
-        ))}
+        {routes.length &&
+          routes.map((link) => (
+            <li key={link.title}>
+              <NavLink to={link.path} onClick={onNavLink}>
+                {link.title}
+              </NavLink>
+            </li>
+          ))}
       </ul>
     </NavBarRoot>
   );
