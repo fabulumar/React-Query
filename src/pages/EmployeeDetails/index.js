@@ -1,16 +1,21 @@
 import React from "react";
 import moment from "moment";
 import styled from "styled-components";
-import Loader from "../components/Loader";
-import ErrorMessage from "../components/ErrorMessage";
-import { getAllEmployees } from "../hooks/index";
-import Card from "../components/Card";
+import Loader from "../../components/Loader";
+import ErrorMessage from "../../components/ErrorMessage";
+import Avatar from "../../components/Avatar";
+import { getAllEmployees } from "../../hooks/index";
+import Card from "../../components/Card";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useHistory } from "react-router-dom";
+import { individualDetails } from "../../routes";
+import { getRandomColor } from "../../utils";
 
 const StyledTable = styled.table`
   box-sizing: border-box;
   border: none;
   border-collapse: collapse;
+  width: 100%;
 `;
 
 const StyledTHead = styled.thead`
@@ -20,15 +25,19 @@ const StyledTHead = styled.thead`
       padding: 5px 15px;
       font-size: 14px;
       color: rgb(45 45 45);
-      &:last-child {
-        padding-right: 0px;
-      }
     }
   }
 `;
 
 const StyledTBody = styled.tbody`
   tr {
+    cursor: pointer;
+    &:hover {
+      td {
+        color: var(--primary-fill);
+      }
+    }
+
     td {
       text-align: left;
       padding: 15px 15px;
@@ -38,15 +47,9 @@ const StyledTBody = styled.tbody`
         max-width: 35px;
         min-width: 35px;
       }
-      &:last-child {
-        padding-right: 0px;
-      }
     }
     &:not(:last-child) {
       border-bottom: 1px solid rgb(240 240 240);
-    }
-    &:nth-child(even) {
-      /* background: grey; */
     }
   }
 `;
@@ -66,40 +69,10 @@ const EditButton = styled.button`
   transition: 0.2s ease background;
   cursor: pointer;
   .editIcon {
-    color: rgb(89 106 195);
+    color: rgb(142 142 143);
   }
   &:hover {
     background: rgb(167 170 174 / 30%);
-  }
-`;
-
-const Avatar = styled.div`
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 19px;
-  width: 25px;
-  min-width: 25px;
-  max-width: 25px;
-  border-radius: 25px;
-  padding: 8px 5px;
-  font-size: 14px;
-  font-weight: 700;
-  margin: auto;
-  color: ${({ color }) => color};
-
-  &:before {
-    content: "";
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    height: 100%;
-    width: 100%;
-    border-radius: 25px;
-    background: ${({ color }) => color};
-    box-shadow: ${({ color }) => `0px 0px 11px ${color}`};
-    opacity: 0.2;
   }
 `;
 
@@ -115,12 +88,13 @@ const UserName = styled.span`
 const EmployeeDetails = () => {
   const { data, status } = getAllEmployees();
   const employeeList = data?.data;
+  const history = useHistory();
 
-  const getRandomColor = () => {
-    return "hsl(" + Math.round(Math.random() * 359) + ",65%,60%)";
+  const handleListClick = (event) => {
+    const url = individualDetails.replace(":userId", event.currentTarget.id);
+    history.push(url);
   };
 
-  console.log(employeeList);
   return (
     <>
       {status === "loading" ? (
@@ -142,9 +116,9 @@ const EmployeeDetails = () => {
             <StyledTBody>
               {employeeList.length &&
                 employeeList.map((row) => (
-                  <tr key={row._id}>
+                  <tr key={row._id} id={row._id} onClick={handleListClick}>
                     <td>
-                      <Avatar src={row.avatar} color={getRandomColor()}>
+                      <Avatar color={getRandomColor()}>
                         {row.first_name.split("")[0]}
                         {row.last_name.split("")[0]}
                       </Avatar>
@@ -155,8 +129,8 @@ const EmployeeDetails = () => {
                     </td>
                     <td>{row.email}</td>
                     <td>{row.department}</td>
-                    <td>{moment(row.joined_date).format("DD.MM.YYYY")}</td>
-                    <td>{moment(row.birthday).format("DD.MM.YYYY")}</td>
+                    <td>{moment(row.joined_date).format("DD MMM YY")}</td>
+                    <td>{moment(row.birthday).format("DD MMM YY")}</td>
                     <td>
                       <EditButton>
                         <FontAwesomeIcon icon="pen" className="editIcon" />

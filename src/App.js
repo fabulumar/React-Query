@@ -14,17 +14,41 @@ import Navbar from "./components/Navbar";
 import NavigationToggle from "./components/NavigationToggle";
 import { routes } from "./routesManagement";
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faPen, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import {
+  faAward,
+  faBirthdayCake,
+  faCalendar,
+  faEnvelope,
+  faInbox,
+  faLocationArrow,
+  faPen,
+  faPhoneAlt,
+  faTrashAlt,
+  faUser,
+  faAngleLeft,
+} from "@fortawesome/free-solid-svg-icons";
+import IndividualDetails from "./pages/EmployeeDetails/individualDetails";
+import { individualDetails } from "./routes";
 
-library.add(faPen, faTrashAlt);
+library.add(
+  faPen,
+  faTrashAlt,
+  faUser,
+  faBirthdayCake,
+  faPhoneAlt,
+  faAward,
+  faEnvelope,
+  faInbox,
+  faLocationArrow,
+  faCalendar,
+  faAngleLeft
+);
 
 const BodyContent = styled.div`
   margin: 80px auto 0px auto;
   width: 100%;
   display: flex;
   flex-direction: column;
-  transform: ${({ isNavBarOpen }) =>
-    isNavBarOpen ? "translateX(20%) scale(0.9)" : "translateX(0%)  scale(1)"};
   transition: 0.2s ease;
   transition-property: transform;
 `;
@@ -53,6 +77,9 @@ function App() {
             <Switch>
               <Route exact path="/">
                 <Redirect to="/home" />
+              </Route>
+              <Route exact path={individualDetails}>
+                <IndividualDetails />
               </Route>
               {routes.length &&
                 routes.map((route, index) => (

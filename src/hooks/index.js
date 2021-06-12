@@ -107,3 +107,21 @@ export const getAllEmployees = () => {
   };
   return MakeQuery("get_all_employees", getEmployeesFunc);
 };
+
+export const getEmployeesById = (employeeId) => {
+  const getEmployeesFunc = async () => {
+    const response = await axios.get(
+      `https://appbox-e8e3.restdb.io/rest/employee-info/${employeeId}`,
+      {
+        headers: {
+          "cache-control": "no-cache",
+          "x-apikey": "60bcf007f2a01c34b8ed35a3",
+        },
+      }
+    );
+    return response;
+  };
+  return MakeQuery("get_individual_employee", getEmployeesFunc, {
+    cacheTime: 0,
+  });
+};

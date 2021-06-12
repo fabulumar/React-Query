@@ -12,6 +12,8 @@ const NavBarRoot = styled.div`
   border-right: 1px solid rgb(230 230 230);
   margin: 0;
   padding-top: 100px;
+  background: #fff;
+  z-index: 1;
   transition: 0.2s ease;
   box-shadow: ${({ isOpen }) => isOpen && "0 0 20px 0px rgb(71 71 71 / 15%)"};
   transition-property: left box-shadow;
